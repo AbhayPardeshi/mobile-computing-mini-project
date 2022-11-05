@@ -3,6 +3,7 @@ package com.example.mikebanks.bankscorpfinancial;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -61,21 +62,22 @@ public class LaunchActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about) {
-            displayHelpDialog();
+        if (id == R.id.action_share) {
+            Intent shareIntent = createShareForecastIntent();
+            startActivity(shareIntent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void displayHelpDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        
-        builder.setTitle("Help")
-                .setMessage("This Bank App Demo was made by Mike Banks. Soon, this dialog will give the user help, depending on where they are in the app");
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    private Intent createShareForecastIntent(){
+        Intent shareIntent = ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setText("This is a Bank Demo Application as a part of Mobile Computing Mini Project")
+                .getIntent();
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+        return shareIntent;
     }
 
     //TODO: NOTE: This code can sometimes run multiple times if login is pressed quickly in succession

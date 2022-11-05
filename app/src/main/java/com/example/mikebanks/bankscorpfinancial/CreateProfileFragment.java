@@ -5,8 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.mikebanks.bankscorpfinancial.Model.Profile;
@@ -14,14 +17,20 @@ import com.example.mikebanks.bankscorpfinancial.Model.db.ApplicationDB;
 
 import java.util.ArrayList;
 
-public class CreateProfileFragment extends Fragment {
+public class CreateProfileFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private EditText edtFirstName;
     private EditText edtLastName;
-    private EditText edtCountry;
+//    private EditText edtCountry;
     private EditText edtUsername;
     private EditText edtPassword;
     private EditText edtPasswordConfirm;
+    private Spinner spinner;
+    String edtCountry;
+
+    String[] countries = { "India", "US",
+            "China", "Russia",
+            "UK" };
 
     public CreateProfileFragment() {
         // Required empty public constructor
@@ -41,10 +50,20 @@ public class CreateProfileFragment extends Fragment {
 
         edtFirstName = rootView.findViewById(R.id.edt_first_name);
         edtLastName = rootView.findViewById(R.id.edt_last_name);
-        edtCountry = rootView.findViewById(R.id.edt_country);
+//        edtCountry = rootView.findViewById(R.id.edt_country);
         edtUsername = rootView.findViewById(R.id.edt_username);
         edtPassword = rootView.findViewById(R.id.edt_password);
         edtPasswordConfirm = rootView.findViewById(R.id.edt_password_confirm);
+        spinner = rootView.findViewById(R.id.spinner_country);
+        spinner.setOnItemSelectedListener(CreateProfileFragment.this);
+        ArrayAdapter ad = new ArrayAdapter<String> (getActivity(),android.R.layout.simple_spinner_item,countries);
+
+        ad.setDropDownViewResource(
+                android.R.layout
+                        .simple_spinner_dropdown_item);
+
+        spinner.setAdapter(ad);
+
         Button btnCreateAccount = rootView.findViewById(R.id.btn_create_account);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +92,7 @@ public class CreateProfileFragment extends Fragment {
             }
         }
 
-        if (edtFirstName.getText().toString().equals("") || edtLastName.getText().toString().equals("") || edtCountry.getText().toString().equals("") ||
+        if (edtFirstName.getText().toString().equals("") || edtLastName.getText().toString().equals("") || edtCountry.equals("") ||
                 edtUsername.getText().toString().equals("") || edtPassword.getText().toString().equals("") || edtPasswordConfirm.getText().toString().equals("")) {
             Toast.makeText(getActivity(), R.string.fields_blank, Toast.LENGTH_SHORT).show();
         }
@@ -85,7 +104,7 @@ public class CreateProfileFragment extends Fragment {
             Toast.makeText(getActivity(), "A User has already taken that username", Toast.LENGTH_SHORT).show();
         }
         else {
-            Profile userProfile = new Profile(edtFirstName.getText().toString(), edtLastName.getText().toString(), edtCountry.getText().toString(),
+            Profile userProfile = new Profile(edtFirstName.getText().toString(), edtLastName.getText().toString(), edtCountry,
                     edtUsername.getText().toString(), edtPassword.getText().toString());
 
             applicationDb.saveNewProfile(userProfile);
@@ -97,5 +116,15 @@ public class CreateProfileFragment extends Fragment {
             ((LaunchActivity) getActivity()).profileCreated(bundle);
 
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        edtCountry = countries[i];
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
