@@ -1,12 +1,12 @@
-#Mobile Computing Mini Project (Bank Management Android App)
+# Mobile Computing Mini Project (Bank Management Android App)
 
-##PROJECT DETAILS
+## PROJECT DETAILS
 
 -A Banking app made for Android using Android Studio. No real money is involved, it is a project to showcase my knowledge and practical skill in Android development with Java. The Application was developed using a MVC approach, using proper programming conventions, including documentation, error/exception handling, thorough program structure and memory efficiency.
 
 -The app starts out with a login screen, in which the user can either log in with an existing profile, or click a button and create a new profile. When signed in, the user will be brought to their dashboard page, which (when first creating a profile), will prompt them to make their first account. Additionally, there is a menu that slides from the left which includes all of the options for the app, including Dashboard, Account Overview (and subsequently Transactions), Deposits, Payments, Transfers, Profile Settings and Logout.
 
-##HOW TO RUN ON LOCAL MACHINE
+## HOW TO RUN ON LOCAL MACHINE
 -First clone the repo using -
 ```
     https://github.com/AbhayPardeshi/mobile-computing-mini-project
@@ -19,7 +19,7 @@
 
 That's it. App is live on your phone.
 
-##ANDROID DEVELOPMENT CONCEPTS USED
+## ANDROID DEVELOPMENT CONCEPTS USED
 
 -Multiple Activities: There are two activities: one which has the fragments for logging in and creating a profile, and the other for hosting all of the features the bank app has, including account overview, payments, transactions, etc. The activites serve as containers for the different fragments throughout the application. Intents are used to pass data from one activity to another. The activities themselves do not display a view, but rather host the navigation code (among other things) to travel between fragments.
 
@@ -37,7 +37,8 @@ That's it. App is live on your phone.
 
 -Array Adapters: Custom array adapters are used to display information in ListView's and Spinner's. The adapters used are for accounts and all transaction types (deposits, transfers and payments).
 
-##NOTABLE MENTIONS
+## NOTABLE MENTIONS
+
 -The app follows the Material Design guidelines, most noteably with the icons of the app. Also noticeable in the DrawerLayout, the custom tolbar and the 'Add' buttons in some of the fragments.
 -Resource files are used (best practice) for strings, colors, drawables, styles.
 -Runs on Android API 19 and up
